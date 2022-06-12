@@ -1,4 +1,6 @@
-import { MovieCard } from './MovieCard';
+import { memo } from 'react';
+
+import MovieCard from './MovieCard';
 
 import { MovieProps } from '../@types/movies';
 import { GenreResponseProps } from '../@types/genre';
@@ -8,28 +10,28 @@ interface ContentProps {
   selectedGenre: GenreResponseProps;
 }
 
-export function Content({ movies, selectedGenre }: ContentProps) {
-  return (
-    <div className="container">
-      <header>
-        <span className="category">
-          Categoria:<span> {selectedGenre.title}</span>
-        </span>
-      </header>
+const Content: React.FC<ContentProps> = ({ movies, selectedGenre }) => (
+  <div className="container">
+    <header>
+      <span className="category">
+        Categoria:<span> {selectedGenre.title}</span>
+      </span>
+    </header>
 
-      <main>
-        <div className="movies-list">
-          {movies.map((movie: MovieProps) => (
-            <MovieCard
-              key={movie.imdbID}
-              title={movie.Title}
-              poster={movie.Poster}
-              runtime={movie.Runtime}
-              rating={movie.Ratings[0].Value}
-            />
-          ))}
-        </div>
-      </main>
-    </div>
-  );
-}
+    <main>
+      <div className="movies-list">
+        {movies.map((movie: MovieProps) => (
+          <MovieCard
+            key={movie.imdbID}
+            title={movie.Title}
+            poster={movie.Poster}
+            runtime={movie.Runtime}
+            rating={movie.Ratings[0].Value}
+          />
+        ))}
+      </div>
+    </main>
+  </div>
+);
+
+export default memo(Content)
